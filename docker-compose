@@ -4,5 +4,11 @@ services:
   whanos-c:
     build:
       context: ./images/c
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.base
     image: whanos-c
+  
+  whanos-java:
+    build:
+      context: ./image/java
+      dockerfile: Dockerfile.base
+    image: whanos-java
