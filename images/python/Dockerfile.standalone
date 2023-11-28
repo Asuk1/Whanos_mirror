@@ -1,0 +1,6 @@
+# Dockerfile standalone for python image
+
+FROM whanos-python as base
+
+
+CMD ["python", "-m", "app"]
