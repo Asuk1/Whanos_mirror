@@ -12,3 +12,9 @@ services:
       context: ./image/java
       dockerfile: Dockerfile.base
     image: whanos-java
+
+  whanos-javascript:
+    build:
+      context: ./image/javascript
+      dockerfile: Dockerfile.base
+    image: whanos-javascript

@@ -1,0 +1,10 @@
+# Dockerfile base for Node.js 20.9
+FROM node:20.9 as base
+
+WORKDIR /app
+
+COPY . .
+
+RUN test -f package.json
+
+FROM scratch
