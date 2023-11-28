@@ -1,0 +1,9 @@
+# Dockerfile.standalone
+
+FROM whanos-c as base
+
+RUN make
+
+COPY votre_binaire_compilé /app/compiled-app
+
+CMD ["/app/compiled_app"]

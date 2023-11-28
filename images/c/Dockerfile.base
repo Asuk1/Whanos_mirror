@@ -1,0 +1,13 @@
+# Dockerfile.base
+
+FROM gcc:13.2 as builder
+
+WORKDIR /app
+
+COPY . .
+
+RUN test -f Makefile
+
+RUN make
+
+FROM scratch
