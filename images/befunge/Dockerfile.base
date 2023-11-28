@@ -1,0 +1,10 @@
+# Dockerfile base for befunge
+FROM scratch
+
+WORKDIR /app
+
+COPY whanos-befunge:latest .
+
+RUN rm -rf whanos-befunge
+
+CMD ["/app/befunge-interpreter"]
