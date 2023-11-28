@@ -4,17 +4,23 @@ services:
   whanos-c:
     build:
       context: ./images/c
-      dockerfile: Dockerfile.base
+      dockerfile: Dockerfile.standalone
     image: whanos-c
   
   whanos-java:
     build:
-      context: ./image/java
-      dockerfile: Dockerfile.base
+      context: ./images/java
+      dockerfile: Dockerfile.standalone
     image: whanos-java
 
   whanos-javascript:
     build:
-      context: ./image/javascript
-      dockerfile: Dockerfile.base
+      context: ./images/javascript
+      dockerfile: Dockerfile.standalone
     image: whanos-javascript
+
+  whanos-python:
+    build:
+      context: ./images/python
+      dockerfile: Dockerfile.standalone
+    image: whanos-python
