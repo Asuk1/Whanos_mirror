@@ -1,0 +1,7 @@
+# Dockerfile.standalone JAVA
+
+FROM whanos-befunge-standalone:latest
+
+COPY main.bf .
+
+CMD ["befunge-interpreter", "main.bf"]
