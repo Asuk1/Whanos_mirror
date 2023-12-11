@@ -1,0 +1,37 @@
+# Jenkins Configuration
+
+jenkins:
+  # Welcome message displayed when you launched Jenkins
+  systemMessage: "Welcome to whanos project"
+
+  # Configure Jenkins remoting security
+  remotingSecurity:
+    enabled: true
+
+  # Configure the security realm for Jenkins
+  securityRealm:
+    local:
+      # Disable user sign-up
+      allowsSignup: false
+
+      # Define admin user and all the users
+      users:
+        - id: admin
+          name: admin
+          # ADMIN_PASSWORD environment variable for the admin user's password (check .env)
+          password: ${ADMIN_PASSWORD}
+
+  # Configure role-based authorization
+  authorizationStrategy:
+    roleBased:
+      roles:
+        global:
+          - name: "admin"
+            description: "Whanos Master"
+            # Assign permission to the admin role here I put overall bcs it is admin
+            permissions:
+              - "Overall/Administer"
+            entries:
+              # Associate the admin user with the admin role
+              - user: "admin"
+
