@@ -84,7 +84,6 @@ freeStyleJob("Whanos base images/whanos-python") {
 
 }
 
-
 #################### PROJECTS ####################
 
 #Project for link project with paremeter of github deploy
@@ -107,7 +106,7 @@ freeStyleJob("LINK PROJECTS") {
                     scm('H/1 * * * *')
                 }
                 steps {
-                        shell("/var/jenkins_home/find.sh $DISPLAY_NAME\")
+                        // remove this line for the momment because i'm not sure
                 }
             }
             ''')
