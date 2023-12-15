@@ -37,5 +37,5 @@ fi
 if [[ -f Dockerfile ]]; then
     docker build . -t "whanos-${CHECK_LANGUAGE[0]}"
 else
-    docker build . -f "../../images/whanos-${CHECK_LANGUAGE[0]}/Dockerfile.standalone" -t "whanos-${CHECK_LANGUAGE[0]}"
+    docker build . -f ../../images/whanos-${CHECK_LANGUAGE[0]}/Dockerfile.standalone -t whanos-${CHECK_LANGUAGE[0]}
 fi
