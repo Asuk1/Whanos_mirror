@@ -34,4 +34,5 @@ jenkins:
             entries:
               # Associate the admin user with the admin role
               - user: "admin"
-
+jobs:
+  - file : /var/jenkins_home/job_dsl.groovy

@@ -1,12 +1,13 @@
-#################### FOLDERS ####################
 folder('Whanos base images') {
     displayName('Whanos base images')
     description('Folder for Whanos project')
 }
 
-#################### BASE IMAGES ####################
+folder('Projects') {
+    displayName('Projects')
+    description('Folder for Whanos project')
+}
 
-#Base images for c
 freeStyleJob("Whanos base images/whanos-c") {
     steps {
         shell('docker build . -t whanos-c -f /images/whanos-c/Dockerfile.base')
@@ -17,7 +18,6 @@ freeStyleJob("Whanos base images/whanos-c") {
     }
 }
 
-#Base images for ansible
 freeStyleJob("Whanos base images/whanos-ansible") {
     steps {
         shell('docker build . -t whanos-ansible -f /images/whanos-ansible/Dockerfile.base')
@@ -28,7 +28,6 @@ freeStyleJob("Whanos base images/whanos-ansible") {
     }
 }
 
-#Base images for docker
 freeStyleJob("Whanos base images/whanos-docker") {
     steps {
         shell('docker build . -t whanos-docker -f /images/whanos-docker/Dockerfile.base')
@@ -39,7 +38,6 @@ freeStyleJob("Whanos base images/whanos-docker") {
     }
 }
 
-#Base images for java
 freeStyleJob("Whanos base images/whanos-java") {
     steps {
         shell('docker build . -t  whanos-java -f /images/whanos-java/Dockerfile.base')
@@ -50,7 +48,6 @@ freeStyleJob("Whanos base images/whanos-java") {
     }
 }
 
-#Base images for javascript
 freeStyleJob("Whanos base images/whanos-javascript") {
     steps {
         shell('docker build . -t whanos-javascript -f  /images/whanos-javascript/Dockerfile.base')
@@ -61,7 +58,6 @@ freeStyleJob("Whanos base images/whanos-javascript") {
     }
 }
 
-#Base images for befunge
 freeStyleJob("Whanos base images/whanos-befunge") {
     steps {
         shell('docker build . -t whanos-befunge -f /images/whanos-befunge/Dockerfile.base')
@@ -72,7 +68,6 @@ freeStyleJob("Whanos base images/whanos-befunge") {
     }
 }
 
-#Base images for python
 freeStyleJob("Whanos base images/whanos-python") {
     steps {
         shell('docker build . -t whanos-python -f /images/whanos-python/Dockerfile.base')
@@ -84,9 +79,6 @@ freeStyleJob("Whanos base images/whanos-python") {
 
 }
 
-#################### PROJECTS ####################
-
-#Project for link project with paremeter of github deploy
 freeStyleJob("LINK PROJECTS") {
     parameters {
         stringParam('GITHUB_NAME', null, 'GitHub repository url for the job')
@@ -106,15 +98,10 @@ freeStyleJob("LINK PROJECTS") {
                     scm('H/1 * * * *')
                 }
                 steps {
-                        // remove this line for the momment because i'm not sure
+                    shell("/var/jenkins_home/bash.sh $DISPLAY_NAME")
                 }
             }
             ''')
-        }
-    }
-    post {
-        always {
-            cleanWs()
         }
     }
 }
