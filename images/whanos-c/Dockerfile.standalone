@@ -1,9 +1,11 @@
 # Dockerfile.standalone
 
-FROM whanos-c as base
+FROM gcc:11.2
 
-RUN make
+COPY . /app
 
-COPY compiled-app /app/compiled-app
+WORKDIR /app
 
-CMD ["/app/compiled_app"]
+RUN make && rm -rf Makefile app
+
+CMD ["./compiled-app"]

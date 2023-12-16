@@ -1,5 +1,12 @@
 # Dockerfile standalone for javascript
+FROM node:21-alpine3.18
 
-FROM whanos-javascript as base
+RUN apk add --no-cache bash
 
-CMD ["node", "."]
+COPY . /app
+
+WORKDIR /app
+
+RUN npm install --production=false
+
+CMD [ "node", "." ]

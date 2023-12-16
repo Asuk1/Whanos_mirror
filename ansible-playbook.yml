@@ -1,14 +1,14 @@
-- name: Lancer Jenkins dans un docker compose
+- name: Launching Jenkins in a docker compose
   hosts: default
   become: true
   gather_facts: no
 
   tasks:
-    - name: Mise à jour des paquets
+    - name: Updating packages
       apt:
         update_cache: yes
 
-    - name: Installation des dépendances pour Docker
+    - name: Installing all dependencies for Docker
       apt:
         name:
           - apt-transport-https
@@ -17,69 +17,69 @@
           - gnupg-agent
           - software-properties-common
 
-    - name: Ajouter la clé GPG Docker
+    - name: Adding Docker GPG key
       apt_key:
         url: https://download.docker.com/linux/debian/gpg
         state: present
 
-    - name: Ajouter le dépôt Docker
+    - name: Adding link to repository of Docker binary 
       apt_repository:
         repo: "deb [arch=amd64] https://download.docker.com/linux/debian buster stable"
         state: present
 
-    - name: Installer Docker
+    - name: Installing Docker
       apt:
         name: docker-ce
         state: latest
 
-    - name: Téléchargement de la dernière version de Docker Compose
+    - name: Downloading latest version of Docker Compose
       get_url:
         url: https://github.com/docker/compose/releases/latest/download/docker-compose-Linux-x86_64
         dest: /usr/local/bin/docker-compose
         mode: 'u+x,g+x'
       ignore_errors: true
 
-    - name: Vérification de l'installation de Docker Compose
+    - name: checking Docker Compose install version
       command: docker-compose --version
 
 
-    - name: Créer le dossier whanos sur la machine distante
+    - name: creating whanos directory on the vm
       file:
         path: /home/ubuntu/whanos
         state: directory
         mode: '0755'
 
-    - name: Copy du docker-compose
+    - name: Copying docker-compose in whanos directory
       ansible.builtin.copy:
         src: docker-compose.yml
         dest: /home/ubuntu/whanos/
         mode: '0664'
 
-    - name: Copy du Dockerfile
+    - name: Copying Dockerfile in whanos directory
       ansible.builtin.copy:
         src: Dockerfile
         dest: /home/ubuntu/whanos/
         mode: '0664'
 
-    - name: Copy des fichiers jenkins
+    - name: Copying  jenkins files in whanos directory
       ansible.builtin.copy:
         src: jenkins
         dest: /home/ubuntu/whanos/
         mode: '0664'
 
-    - name: Copy des images dockers pour chaque language
+    - name: Copying dockers images in whanos directory
       ansible.builtin.copy:
         src: images
         dest: /home/ubuntu/whanos/
         mode: '0664'
 
-    - name: Copy plugin env
+    - name: Copying env plugin in whanos directory
       ansible.builtin.copy:
         src: .env
         dest: /home/ubuntu/whanos/
         mode: '0664'
 
-    - name: Lancer Docker Compose
+    - name: Launching Docker Compose
       ansible.builtin.shell:
         cmd: docker-compose up -d
         chdir: /home/ubuntu/whanos

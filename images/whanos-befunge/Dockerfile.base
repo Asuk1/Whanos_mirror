@@ -1,10 +1,17 @@
-# Dockerfile base for befunge
-FROM scratch
+FROM alpine:3.14
 
-WORKDIR /app
+ONBUILD RUN apk add --no-cache build-base wget ncurses-dev git
 
-COPY whanos-befunge:latest .
+ONBUILD WORKDIR /app
 
-RUN rm -rf whanos-befunge
+ONBUILD RUN git clone https://codeberg.org/catseye/Befunge-93.git \
+    && cd Befunge-93 \
+    && make \
+    && cp bin/bef /usr/local/bin \
+    && cd .. \
+    && rm -rf Befunge-93 
 
-CMD ["/app/befunge-interpreter"]
+ONBUILD COPY /app/main.bf .
+
+ONBUILD RUN bef -o app app.bf
+ONBUILD CMD [ "./app" ]

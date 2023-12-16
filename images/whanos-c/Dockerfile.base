@@ -1,13 +1,11 @@
 # Dockerfile.base
 
-FROM gcc:13.2 as builder
+FROM gcc:11.2
 
-WORKDIR /app
+ONBUILD COPY . /app
 
-COPY . .
+ONBUILD WORKDIR /app
 
-RUN test -f Makefile
+ONBUILD RUN make && rm -rf Makefile app
 
-RUN make
-
-FROM scratch
+ONBUILD CMD ["./compiled-app"]

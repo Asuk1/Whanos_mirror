@@ -1,20 +1,14 @@
-# Utilisation de l'image adoptOpenJDK 17 (Java SE 21)
-FROM adoptopenjdk:17-jdk as builder
 
-# Répertoire de travail
-WORKDIR /app
+FROM Maven
 
-# Copie des fichiers sources de votre application dans le conteneur
-COPY . .
+ONBUILD WORKDIR /app
 
-# Compilation de l'application (exemple avec Maven)
-RUN ./mvnw package
+ONBUILD COPY . /app
 
-# Image légère pour exécution
-FROM adoptopenjdk:17-jre-slim
+ONBUILD RUN mvn package -f /app/pom.xml
 
-# Copie du jar ou des fichiers résultants de la compilation depuis l'étape précédente
-COPY --from=builder /app/target/your-app.jar /app/your-app.jar
+ONBUILD RUN cp /app/target/app.jar .
 
-# Commande par défaut pour l'exécution de l'application
-CMD ["java", "-jar", "/app/your-app.jar"]
+ONBUILD RUN rm -rf /app
+
+ONBUILD CMD java -jar app.jar

@@ -1,7 +1,19 @@
 # Dockerfile.standalone JAVA
 
-FROM whanos-befunge-standalone:latest
+FROM alpine:3.14
 
-COPY main.bf .
+RUN apk add --no-cache build-base wget ncurses-dev git
 
-CMD ["befunge-interpreter", "main.bf"]
+WORKDIR /app
+
+RUN git clone https://codeberg.org/catseye/Befunge-93.git \
+    && cd Befunge-93 \
+    && make \
+    && cp bin/bef /usr/local/bin \
+    && cd .. \
+    && rm -rf Befunge-93 
+
+COPY /app/main.bf .
+
+RUN bef -o app app.bf
+CMD [ "./app" ]

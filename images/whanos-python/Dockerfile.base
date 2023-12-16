@@ -1,11 +1,15 @@
 # Dockerfile base for python version 3.12
 
-FROM python:3.12 as base
+FROM python:3.10-alpine
 
-WORKDIR /app
+ONBUILD RUN apk add --no-cache bash
 
-COPY . .
+ONBUILD COPY . /app
 
-RUN test -f requirements.txt
+ONBUILD WORKDIR /app
 
-FROM scratch
+ONBUILD RUN pip install --upgrade pip
+
+ONBUILD RUN pip install -r requirements.txt
+
+ONBUILD CMD ["python", "-m", "app"]
