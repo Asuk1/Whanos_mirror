@@ -1,4 +1,4 @@
-# Dockerfile.standalone JAVA
+# Dockerfile.standalone 
 
 FROM alpine:3.14
 
@@ -9,11 +9,10 @@ WORKDIR /app
 RUN git clone https://codeberg.org/catseye/Befunge-93.git \
     && cd Befunge-93 \
     && make \
-    && cp bin/bef /usr/local/bin \
+    && cp bin/bef ../ \
     && cd .. \
     && rm -rf Befunge-93 
 
-COPY /app/main.bf .
+COPY . /app
 
-RUN bef -o app app.bf
-CMD [ "./app" ]
+CMD ["./bef", "-o", "app", "main.bf"]

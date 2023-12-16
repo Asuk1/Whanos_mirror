@@ -7,11 +7,10 @@ ONBUILD WORKDIR /app
 ONBUILD RUN git clone https://codeberg.org/catseye/Befunge-93.git \
     && cd Befunge-93 \
     && make \
-    && cp bin/bef /usr/local/bin \
+    && cp bin/bef ../ \
     && cd .. \
-    && rm -rf Befunge-93 
+    && rm -rf Befunge-93
 
-ONBUILD COPY /app/main.bf .
+ONBUILD COPY . /app
 
-ONBUILD RUN bef -o app app.bf
-ONBUILD CMD [ "./app" ]
+ONBUILD CMD ["./bef", "-o", "app", "main.bf"]
