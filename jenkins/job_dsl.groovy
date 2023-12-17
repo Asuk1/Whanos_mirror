@@ -83,9 +83,6 @@ freeStyleJob("LINK PROJECTS") {
     parameters {
         stringParam('GITHUB_NAME', null, 'GitHub repository url for the job')
         stringParam('DISPLAY_NAME', null, 'Display name for the job')
-        credentialsParam('SSH_PRIVATE_KEY') {
-            type('com.cloudbees.jenkins.plugins.sshcredentials.impl.BasicSSHUserPrivateKey')
-        }
     }
     steps {
         dsl {
@@ -95,12 +92,7 @@ freeStyleJob("LINK PROJECTS") {
                     preBuildCleanup()
                 }
                 scm {
-                    git {
-                        remote {
-                            url("$GITHUB_NAME")
-                            credentials("$SSH_PRIVATE_KEY")
-                        }
-                    }
+                    github("$GITHUB_NAME")
                 }
                 triggers {
                     scm('H/1 * * * *')
