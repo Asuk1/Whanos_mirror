@@ -128,3 +128,18 @@ freeStyleJob("LINK PROJECTS") {
 
 Go to link project and set up your repository name in in the DISPLAY NAME by the name of your repository without the @github and name the test you want to execute
 Then go to project to see the job created by your link project that take your whanos folder to execute the job based on the language of your repository
+
+
+####### HOW TO RUN ##############
+
+LANG=C.UTF-8 ansible-playbook ansible-playbook.yml -i inventory.ini
+
+Do root@51.15.244.85
+After this do the docker command to clean up your container
+docker rm -f $(docker ps -aq)
+
+Verify that the bash.sh in jenkins have still some permission. If no do a chmod 777 on it 
+
+Build with docker compose up -d --build
+
+Go to http://51.15.244.85:8080/ and enjoy
