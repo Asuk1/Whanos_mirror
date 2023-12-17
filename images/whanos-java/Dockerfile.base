@@ -1,5 +1,5 @@
 
-FROM Maven
+FROM maven
 
 ONBUILD WORKDIR /app
 
